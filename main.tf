@@ -20,3 +20,7 @@ resource "azurerm_resource_group" "example" {
   name     = "example-resources"
   location = "westeurope"
 }
+
+resource "key_vault" {
+  source = "modules/key_vault"
+}
