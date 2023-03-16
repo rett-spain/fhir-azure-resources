@@ -13,10 +13,9 @@ locals {
   basename      = "${local.prefix}-${local.postfix}"
   safe_basename = "${local.safe_prefix}${local.safe_postfix}"
 
-  # Configuration
+  # Update the config variable assignment to correctly decode the YAML file
   #config = yamldecode(file("${path.module}/../config-fhir.yml"))
-  #config = yamldecode(file("${path.module}/config-fhir.yml"))
-  config = yamldecode(file("config-fhir.yml"))
+  config = yamldecode(file("${path.module}/config-fhir.yml"))
 
   location = local.config.variables.location != null ? local.config.variables.location : var.location
   prefix   = local.config.variables.prefix != null ? local.config.variables.prefix : var.prefix
