@@ -16,11 +16,26 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "westeurope"
+#resource "azurerm_resource_group" "example" {
+#  name     = "example-resources"
+#  location = "westeurope"
+#}
+
+module "resource_group" {
+  source = "./modules"
+
+  vars = {
+    rg_name = "example-resources"
+    location = "westeurope"
+    tags = "test"
+  }
 }
 
 module "key_vault" {
   source = "./modules"
+
+  vars = {
+    sku_name = "Standard"
+    purge_protection_enabled = false
+  }
 }
