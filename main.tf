@@ -21,6 +21,6 @@ resource "azurerm_resource_group" "example" {
   location = "westeurope"
 }
 
-resource "key_vault" {
+module "key_vault" {
   source = "modules/key_vault"
 }
