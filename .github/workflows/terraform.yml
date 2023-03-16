@@ -1,9 +1,11 @@
 name: Module:key-vault
+
+# Controls when the action will run. Triggers the workflow on push or pull request
 on:
   workflow_dispatch:
   push:
     branches:
-      - main  
+      [main]
     paths:
       - '.github/workflows/terraform.yml'
       - 'modules/**'
