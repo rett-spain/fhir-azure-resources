@@ -21,16 +21,14 @@ provider "azurerm" {
 #  location = "westeurope"
 #}
 #
-module "resource_group" {
-  source = "./modules/resource_group"
-
-  vars = {
-    rg_name = "example-resources"
-    location = "westeurope"
-    tags = "test"
-  }
-}
-
+#module "resource_group" {
+#  source = "./modules/resource_group"
+#
+#  rg_name = "example-resources"
+#  location = "westeurope"
+#  tags = "test"
+#}
+#
 #module "key_vault" {
 #  source = "key_vault"
 #
