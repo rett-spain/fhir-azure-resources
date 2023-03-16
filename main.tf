@@ -22,7 +22,7 @@ provider "azurerm" {
 #}
 
 module "resource_group" {
-  source = "./modules"
+  source = "./modules/resource_group"
 
   vars = {
     rg_name = "example-resources"
@@ -31,11 +31,11 @@ module "resource_group" {
   }
 }
 
-#module "key_vault" {
-#  source = "./modules"
-#
-#  vars = {
-#    sku_name = "Standard"
-#    purge_protection_enabled = false
-#  }
-#}
+module "key_vault" {
+  source = "./modules/key_vault"
+
+  vars = {
+    sku_name = "Standard"
+    purge_protection_enabled = false
+  }
+}
