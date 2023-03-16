@@ -1,9 +1,10 @@
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group
+# Resource group
 
-resource "azurerm_resource_group" "adl_rg" {
-  name     = "rg-${var.basename}"
-  location = var.location
-  tags     = var.tags
+module "resource_group" {
+  source = "github.com/Azure/azure-data-labs-modules/terraform/resource-group"
 
-  count = var.module_enabled ? 1 : 0
+  basename = local.basename
+  location = local.location
+
+  tags = local.tags
 }
