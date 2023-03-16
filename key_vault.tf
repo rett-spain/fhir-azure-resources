@@ -1,5 +1,16 @@
 # Key Vault
 
+# Resource group
+
+module "resource_group" {
+  source = "github.com/Azure/azure-data-labs-modules/terraform/resource-group"
+
+  basename = local.basename
+  location = local.location
+
+  tags = local.tags
+}
+
 module "key_vault" {
   source = "github.com/Azure/azure-data-labs-modules/terraform/key-vault"
 
@@ -14,5 +25,5 @@ module "key_vault" {
 
   #is_sec_module = local.enable_private_endpoints
 
-  #tags = local.tags
+  tags = local.tags
 }
