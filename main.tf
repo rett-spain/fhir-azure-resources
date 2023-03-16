@@ -31,11 +31,11 @@ module "resource_group" {
   }
 }
 
-module "key_vault" {
-  source = "./modules"
-
-  vars = {
-    sku_name = "Standard"
-    purge_protection_enabled = false
-  }
-}
+#module "key_vault" {
+#  source = "./modules"
+#
+#  vars = {
+#    sku_name = "Standard"
+#    purge_protection_enabled = false
+#  }
+#}
