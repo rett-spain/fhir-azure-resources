@@ -22,7 +22,7 @@ provider "azurerm" {
 #}
 #
 module "resource_group" {
-  source = "resource_group"
+  source = "./modules/resource_group"
 
   vars = {
     rg_name = "example-resources"
