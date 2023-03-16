@@ -1,0 +1,23 @@
+name: Delete resources
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete-resources:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: '1.0.9'
+
+      - name: Configure Terraform backend
+        run: terraform init
+
+      - name: Destroy resources
+        run: terraform destroy -auto-approve
