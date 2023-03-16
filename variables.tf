@@ -25,12 +25,6 @@ variable "module_enabled" {
   default     = true
 }
 
-variable "location" {
-  type        = string
-  description = "Location of the resource group and modules"
-  default     = "North Europe"
-}
-
 variable "prefix" {
   type        = string
   description = "Prefix for module names"
