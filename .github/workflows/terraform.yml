@@ -30,9 +30,8 @@ jobs:
 
   deploy-terraform:
     name: Deploy Azure resources
-#    needs: 
-#      - terraform-lint
     runs-on: ubuntu-latest
+    environment: Azure
 
     steps:
     - name: Check out code
