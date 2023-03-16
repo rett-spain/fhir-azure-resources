@@ -11,8 +11,7 @@ provider "azurerm" {
   features {}
 }
 
-data "azurerm_client_config" "current" {}
-
-data "http" "ip" {
-  url = "https://ifconfig.me"
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "westeurope"
 }
