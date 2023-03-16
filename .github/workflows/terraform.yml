@@ -1,0 +1,56 @@
+name: Module:key-vault
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main  
+    paths:
+      - '.github/workflows/terraform.yml'
+      - 'modules/**'
+
+env:
+  terraform_workingdir: "modules"  
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:     
+#  terraform-lint:
+#    name: Run Terraform lint
+#    runs-on: ubuntu-latest
+#    defaults:
+#         run:
+#          working-directory: "${{ env.terraform_workingdir }}"
+#
+#    steps:
+#    - uses: actions/checkout@v3
+#    - uses: hashicorp/setup-terraform@v2
+#
+#    - name: Terraform fmt
+#      id: fmt
+#      run: terraform fmt -check
+#      continue-on-error: false
+
+  deploy-terraform:
+    name: Deploy Azure resources
+#    needs: 
+#      - terraform-lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -out=tfplan
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply tfplan
