@@ -15,7 +15,15 @@ locals {
 
   # Update the config variable assignment to correctly decode the YAML file
   #config = yamldecode(file("${path.module}/../config-fhir.yml"))
-  config = yamldecode(file("${path.module}/config-fhir.yml"))
+  #config = yamldecode(file("${path.module}/config-fhir.yml"))
+  # Hardcode the config variable with the values from the config-fhir.yml file
+  config = {
+    variables = {
+      prefix   = "my-prefix"
+      postfix  = "123"
+      location = "northeurope"
+    }
+  }
 
   location = local.config.variables.location != null ? local.config.variables.location : var.location
   prefix   = local.config.variables.prefix != null ? local.config.variables.prefix : var.prefix
