@@ -22,5 +22,5 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "key_vault" {
-  source = "./modules/key_vault"
+  source = "./modules"
 }
