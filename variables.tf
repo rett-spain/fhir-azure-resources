@@ -5,6 +5,7 @@ variable "basename" {
     error_message = "Resource group names must be between 0 and 87 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
   description = "Basename of the module."
+  default     = "prefix-001"
 }
 
 variable "location" {
