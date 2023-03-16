@@ -5,6 +5,5 @@ module "resource_group" {
 
   basename = local.basename
   location = local.location
-
   tags = local.tags
 }
