@@ -5,9 +5,12 @@
 module "resource_group" {
   source = "github.com/Azure/azure-data-labs-modules/terraform/resource-group"
 
-  basename = local.basename
-  location = local.location
-  tags = local.tags
+  vars = {
+    rg_name = "example-resources"
+    location = local.location
+    basename = local.basename
+    tags = local.tags
+  }
 }
 
 module "key_vault" {

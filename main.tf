@@ -20,22 +20,22 @@ provider "azurerm" {
 #  name     = "example-resources"
 #  location = "westeurope"
 #}
-
-module "resource_group" {
-  source = "resource_group"
-
-  vars = {
-    rg_name = "example-resources"
-    location = "westeurope"
-    tags = "test"
-  }
-}
-
-module "key_vault" {
-  source = "key_vault"
-
-  vars = {
-    sku_name = "Standard"
-    purge_protection_enabled = false
-  }
-}
+#
+#module "resource_group" {
+#  source = "resource_group"
+#
+#  vars = {
+#    rg_name = "example-resources"
+#    location = "westeurope"
+#    tags = "test"
+#  }
+#}
+#
+#module "key_vault" {
+#  source = "key_vault"
+#
+#  vars = {
+#    sku_name = "Standard"
+#    purge_protection_enabled = false
+#  }
+#}
