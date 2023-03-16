@@ -8,26 +8,10 @@ on:
       - '.github/workflows/terraform.yml'
       - 'modules/**'
 
-env:
-  terraform_workingdir: "modules"
-#  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-jobs:     
-#  terraform-lint:
-#    name: Run Terraform lint
-#    runs-on: ubuntu-latest
-#    defaults:
-#         run:
-#          working-directory: "${{ env.terraform_workingdir }}"
-#
-#    steps:
-#    - uses: actions/checkout@v3
-#    - uses: hashicorp/setup-terraform@v2
-#
-#    - name: Terraform fmt
-#      id: fmt
-#      run: terraform fmt -check
-#      continue-on-error: false
+permissions:
+      id-token: write
 
+jobs:     
   deploy-terraform:
     name: Deploy Azure resources
     runs-on: ubuntu-latest
