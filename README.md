@@ -15,3 +15,7 @@ Terraform scripts to create and maintain FHIR Azure resources
         container_name       = "tfstate"
         key                  = "terraform.tfstate"
         }
+
+2. Authentication with Azure
+
+    Authentication via Service Principal and Client Secret: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
