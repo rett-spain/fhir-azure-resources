@@ -1,7 +1,7 @@
 name: Module:key-vault
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
       - main  
     paths:
