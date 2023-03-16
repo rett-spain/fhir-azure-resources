@@ -3,7 +3,7 @@
 module "key_vault" {
   source = "github.com/Azure/azure-data-labs-modules/terraform/key-vault"
 
-#  basename                 = local.basename
+  basename                 = local.basename
   rg_name                  = module.resource_group.name
   location                 = module.resource_group.location
   sku_name                 = var.sku_name
