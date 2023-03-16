@@ -28,8 +28,8 @@ locals {
   location = local.config.variables.location != null ? local.config.variables.location : var.location
   prefix   = local.config.variables.prefix != null ? local.config.variables.prefix : var.prefix
   postfix  = local.config.variables.postfix != null ? local.config.variables.postfix : var.postfix
+}
 
-  output "config_contents" {
-    value = file("${path.module}/config-fhir.yml")
-  }
+output "config_contents" {
+  value = file("${path.module}/config-fhir.yml")
 }
