@@ -4,7 +4,6 @@ locals {
     Project     = "FHIR Patient Registry"
     Environment = "dev"
     Toolkit     = "Terraform"
-    Template    = "data-insights-syn"
     Name        = "${var.prefix}"
   }
 

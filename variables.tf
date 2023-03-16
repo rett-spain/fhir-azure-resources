@@ -5,7 +5,7 @@ variable "basename" {
     error_message = "Resource group names must be between 0 and 87 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
   description = "Basename of the module."
-  default     = "prefix-001"
+  default     = "fhir-001"
 }
 
 variable "location" {
@@ -29,7 +29,7 @@ variable "module_enabled" {
 variable "prefix" {
   type        = string
   description = "Prefix for module names"
-  default     = "adl"
+  default     = "fhir-prefix"
 }
 
 variable "postfix" {
