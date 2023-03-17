@@ -31,5 +31,4 @@ module "key_vault" {
   sku_name                 = "standard"
   purge_protection_enabled = true
   tags                     = local.tags
-  is_sec_module            = 0           
 }

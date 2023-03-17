@@ -11,4 +11,6 @@ module "key_vault" {
   purge_protection_enabled = var.purge_protection_enabled
 
   tags                     = var.tags
+
+  is_sec_module            = 0
 }
