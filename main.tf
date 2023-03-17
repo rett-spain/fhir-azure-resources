@@ -25,7 +25,7 @@ module "resource_group" {
 module "key_vault" {
   source = "./modules/key_vault"
 
-  resource_group_name      = module.resource_group.name
+  rg_name                  = module.resource_group.name
   basename                 = local.basename
   location                 = local.location
   sku_name                 = local.sku_name
