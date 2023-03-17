@@ -12,5 +12,5 @@ module "key_vault" {
 
   tags                     = var.tags
 
-  is_sec_module            = 0
+  is_sec_module            = false
 }
