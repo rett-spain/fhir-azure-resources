@@ -22,11 +22,9 @@ module "resource_group" {
   basename = local.basename
 }
 
-#module "key_vault" {
-#  source = "key_vault"
-#
-#  vars = {
-#    sku_name = "Standard"
-#    purge_protection_enabled = false
-#  }
-#}
+module "key_vault" {
+  source = "key_vault"
+
+  sku_name = "Standard"
+  purge_protection_enabled = false
+}

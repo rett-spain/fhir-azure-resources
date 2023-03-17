@@ -6,8 +6,9 @@ module "key_vault" {
   basename                 = local.basename
   resource_group_name      = module.resource_group.name
   location                 = local.location
-  sku_name                 = "Standard"
-  purge_protection_enabled = true
 
-  tags = local.tags
+  sku_name                 = var.sku_name
+  purge_protection_enabled = var.purge_protection_enabled
+
+  tags                     = local.tags
 }
