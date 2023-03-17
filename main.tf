@@ -19,7 +19,6 @@ provider "azurerm" {
 module "resource_group" {
   source = "./modules/resource_group"
 
-  resource_group_name = 
 }
 
 #module "key_vault" {
