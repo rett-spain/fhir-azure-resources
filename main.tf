@@ -19,9 +19,7 @@ provider "azurerm" {
 module "resource_group" {
   source = "./modules/resource_group"
 
-  rg_name = "example-resources"
-  location = "westeurope"
-  tags = "test"
+  resource_group_name = 
 }
 
 #module "key_vault" {
