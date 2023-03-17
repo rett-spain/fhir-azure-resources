@@ -19,6 +19,7 @@ provider "azurerm" {
 module "resource_group" {
   source = "./modules/resource_group"
 
+  basename = local.basename
 }
 
 #module "key_vault" {
