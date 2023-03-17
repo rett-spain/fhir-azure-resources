@@ -1,5 +1,5 @@
 module "redis_cache" {
-  source              = "../modules/redis-cache"
+  source              = "../modules/redis-cache" // git::https://github.com/inditex/iac-azeventhub.git?ref=2.0.0"
   basename            = random_string.postfix.result
   resource_group_name = module.local_rg.name
   location            = var.location
