@@ -23,7 +23,7 @@ module "resource_group" {
 }
 
 module "key_vault" {
-  source = "key_vault"
+  source = "./modules/key_vault"
 
   sku_name = "Standard"
   purge_protection_enabled = false
