@@ -1,7 +1,7 @@
 output "id" {
   value = (
-    length(azurerm_resource_group.adl_rg) > 0 ?
-    azurerm_resource_group.adl_rg[0].id : ""
+    length(resource_group) > 0 ?
+    resource_group[0].id : ""
   )
   description = "Resource identifier of the instance of Resource Group."
 }
