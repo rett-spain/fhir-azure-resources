@@ -27,4 +27,5 @@ module "key_vault" {
 
   sku_name = "Standard"
   purge_protection_enabled = false
+  basename = local.basename
 }
