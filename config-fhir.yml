@@ -5,9 +5,22 @@ variables:
   postfix: "101"
   location: "northeurope"
 
+  #Tag Values
+  owner: "FHIR Team"
+  project     : "FHIR Patient Registry"
+  environment : "dev"
+  toolkit     : "Terraform"
+
   # Feature flags
+  enable_keyvault: "false"
+  enable_service_plan: "false"
+  enable_function_app: "false"
+  enable_redis_cache: "false"
+  enable_app_insight: "false"
+  enable_log_analytics: "false"
+
+  # Security Feature flags
   enable_private_endpoints: "false"
-  enable_jumphost: "false"
 
   # Terraform remote storage
   terraform_st_resource_group: rg-adl-terraform-state

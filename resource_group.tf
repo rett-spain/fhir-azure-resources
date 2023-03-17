@@ -5,5 +5,19 @@ module "resource_group" {
 
   basename = local.basename
   location = local.location
-  tags = local.tags
+  tags     = local.tags
 }
+
+# module "local_rg" {
+#   source   = "../../resource-group"
+#   basename = random_string.postfix.result
+#   location = var.location
+#   tags     = local.tags
+# }
+
+# module "local_rg" {
+#   source   = "../../resource-group"
+#   basename = random_string.postfix.result
+#   location = var.location
+#   tags     = local.tags
+# }

@@ -4,10 +4,10 @@ locals {
 
   # Tags for all resources
   tags = {
-    Owner       = "FHIR Team"
-    Project     = "FHIR Patient Registry"
-    Environment = "dev"
-    Toolkit     = "Terraform"
+    Owner       = local.config.variables.owner != null ? local.config.variables.owner : var.owner
+    Project     = local.config.variables.project != null ? local.config.variables.project : var.project
+    Environment = local.config.variables.environment != null ? local.config.variables.environment : var.environment
+    Toolkit     = local.config.variables.toolkit != null ? local.config.variables.toolkit : var.toolkit
     Name        = "${var.prefix}"
   }
 
