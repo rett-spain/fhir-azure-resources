@@ -42,6 +42,13 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan -out=tfplan
+      path: modules/azure
+
+    - name: Upload tfplan
+      uses: actions/upload-artifact@v2
+      with:
+        name: tfplan
+        path: modules/azure
 
   Apply-terraform:
     needs: Init-terraform
@@ -50,6 +57,13 @@ jobs:
     environment: Azure
 
     steps:
+    - name: Download tfplan
+      uses: actions/download-artifact@v2
+      with:
+        name: tfplan
+        path: modules/azure
+
     - name: Terraform Apply
       id: apply
-      run: terraform apply tfplan 
+      run: terraform apply tfplan
+      path: modules/azure
