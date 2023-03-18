@@ -15,10 +15,10 @@ variables:
   enable_resource_group: "true"
   enable_keyvault: "true"
   enable_storage_account: "true"
-  enable_service_plan: "false"
-  enable_function_app: "false"
+  enable_service_plan: "true"
   enable_redis_cache: "true"
-  enable_app_insight: "false"
+  enable_application_insight: "true"
+  enable_function_app: "false"
   enable_log_analytics: "false"
 
   # Security Feature flags
@@ -33,8 +33,7 @@ variables:
           Project     : "FHIR Patient Registry"
           Environment : "dev"
           Toolkit     : "Terraform"
-        
-      
+          
     - name: "FHIR02"
       tags : 
           Owner: "Walter"
