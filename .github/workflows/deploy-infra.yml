@@ -44,6 +44,7 @@ jobs:
       run: terraform plan -out=tfplan
 
   Apply-terraform:
+    needs: Init-terraform
     name: Deploy Azure resources
     runs-on: ubuntu-latest
     environment: Azure
@@ -51,4 +52,4 @@ jobs:
     steps:
     - name: Terraform Apply
       id: apply
-      run: terraform apply tfplan
+      run: terraform apply tfplan 
