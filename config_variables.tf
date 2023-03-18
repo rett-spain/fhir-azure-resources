@@ -1,5 +1,5 @@
 
-variable "resource_group" {
+variable "enable_resource_group" {
   type        = bool
   description = "Variable to enable or disable the module"
   default     = false
@@ -46,5 +46,37 @@ variable "enable_private_endpoints" {
   type        = bool
   description = "Variable to enable or disable the module"
   default     = false
+}
+
+variable "owner" {
+  type        = string
+  description = "Owner tag value"
+  default     = ""
+}
+
+variable "project" {
+  type        = string
+  description = "project tag value"
+  default     = ""
+}
+
+variable "environment" {
+  type        = string
+  description = "environment tag value"
+  default     = ""
+}
+
+variable "toolkit" {
+  type        = string
+  description = "toolkit tag value"
+  default     = ""
+}
+
+variable "rg_resource" {
+  default = null
+}
+
+variable "akv_resource" {
+  default = null
 }
 

@@ -12,7 +12,7 @@ variables:
   toolkit     : "Terraform"
 
   # Feature flags
-  enable_resource_group: "false"
+  enable_resource_group: "true"
   enable_keyvault: "false"
   enable_service_plan: "false"
   enable_function_app: "false"
@@ -22,6 +22,45 @@ variables:
 
   # Security Feature flags
   enable_private_endpoints: "false"
+
+#Resource Custom Configuration:
+
+  rg_resource: 
+    - name: "FHIR01"
+      tags : 
+          Owner: "Pedro"
+          Project     : "FHIR Patient Registry"
+          Environment : "dev"
+          Toolkit     : "Terraform"
+        
+      
+    - name: "FHIR02"
+      tags : 
+          Owner: "Walter"
+          Project     : "FHIR Patient Registry"
+          Environmentt : "dev"
+          Toolkit     : "Terraform"
+
+  akv_resource: 
+      - name: "akv01"
+        resource_group_name: "FHIR02"
+        tags : 
+           Owner: "Walter"
+           Project     : "FHIR Patient Registry"
+           Environmentt : "dev"
+           Toolkit     : "Terraform"
+        sku_name : "standard"
+        firewall_default_action             : "Allow"
+
+      - name: "akv02"
+        resource_group_name: "FHIR01"
+        tags : 
+           Owner: "Walter"
+           Project     : "FHIR Patient Registry"
+           Environmentt : "dev"
+           Toolkit     : "Terraform"
+        sku_name : "standard"
+        firewall_default_action             : "Allow"
 
   # Terraform remote storage
   #terraform_st_resource_group: rg-adl-terraform-state

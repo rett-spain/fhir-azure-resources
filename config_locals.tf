@@ -22,11 +22,14 @@ locals {
   postfix  = local.config.variables.postfix != null ? local.config.variables.postfix : var.postfix
 
   #Feature Flags
-  enable_keyvault      = local.config.variables.enable_keyvault != null ? local.config.variables.enable_keyvault : var.enable_keyvault
-  enable_service_plan  = local.config.variables.enable_service_plan != null ? local.config.variables.enable_service_plan : var.enable_service_plan
-  enable_function_app  = local.config.variables.enable_function_app != null ? local.config.variables.function_app : var.function_app
-  enable_redis_cache   = local.config.variables.enable_redis_cache != null ? local.config.variables.redis_cache : var.redis_cache
-  enable_app_insight   = local.config.variables.enable_app_insight != null ? local.config.variables.app_insight : var.app_insight
-  enable_log_analytics = local.config.variables.enable_log_analytics != null ? local.config.variables.log_analytics : var.enable_log_analytics
+  enable_resource_group = local.config.variables.enable_resource_group != null ? local.config.variables.enable_resource_group : var.enable_resource_group
+  enable_keyvault       = local.config.variables.enable_keyvault != null ? local.config.variables.enable_keyvault : var.enable_keyvault
+  # enable_service_plan  = local.config.variables.enable_service_plan != null ? local.config.variables.enable_service_plan : var.enable_service_plan
+  # enable_function_app  = local.config.variables.enable_function_app != null ? local.config.variables.function_app : var.function_app
+  # enable_redis_cache   = local.config.variables.enable_redis_cache != null ? local.config.variables.redis_cache : var.redis_cache
+  # enable_app_insight   = local.config.variables.enable_app_insight != null ? local.config.variables.app_insight : var.app_insight
+  # enable_log_analytics = local.config.variables.enable_log_analytics != null ? local.config.variables.log_analytics : var.enable_log_analytics
 
+  rgs  = local.config.variables.rg_resource != null ? local.config.variables.rg_resource : []
+  akvs = local.config.variables.akv_resource != null ? local.config.variables.akv_resource : []
 }

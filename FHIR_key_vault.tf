@@ -1,22 +1,15 @@
 
 
 locals {
-  akvs = {
-    akv_01 = {
-      module_enabled = local.enable_enable_keyvault
-    }
-  }
-
   default_akv = {
-    module_enabled                      = false
-    resource_group_name                 = module.resource_group.name
+    module_enabled                      = local.enable_keyvault
     sku_name                            = "standard"
     basename                            = local.basename
     location                            = local.location
     tags                                = local.tags
     is_sec_module                       = false
     subnet_id                           = ""
-    private_dns_zone_ids                = ""
+    private_dns_zone_ids                = []
     soft_delete_retention_days          = 90
     purge_protection_enabled            = true
     enabled_for_deployment              = false
@@ -26,16 +19,16 @@ locals {
     firewall_bypass                     = "AzureServices"
   }
 
-  merged_akv = [for akv in local.akvs : merge(local.default_akv, akv)]
+  merged_akv = local.akvs != null ? [for akv in local.akvs : merge(local.default_akv, akv)] : []
 
 }
 
 module "key_vault" {
-  source                              = "https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/key-vault?ref=v1.4.0"
-  for_each                            = local.merged_akv
+  source                              = "./modules/key-vault" #"github.com/Azure/azure-data-labs-modules/terraform/key-vault"
+  for_each                            = local.merged_akv != null ? { for element in local.merged_akv : element.name => element } : {}
   module_enabled                      = each.value.module_enabled
-  basename                            = each.value.basename
-  resource_group_name                 = each.value.resource_group.name
+  basename                            = each.value.name
+  resource_group_name                 = module.resource_group[each.value.resource_group_name].name
   location                            = each.value.location
   sku_name                            = each.value.sku_name
   tags                                = each.value.tags
