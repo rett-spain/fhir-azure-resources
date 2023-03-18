@@ -1,4 +1,6 @@
-
+/*
+Enable Variable declaration
+*/
 variable "enable_resource_group" {
   type        = bool
   description = "Variable to enable or disable the module"
@@ -54,6 +56,10 @@ variable "enable_storage_account" {
   default     = false
 }
 
+/*
+Tag variables
+*/
+
 variable "owner" {
   type        = string
   description = "Owner tag value"
@@ -78,6 +84,11 @@ variable "toolkit" {
   default     = ""
 }
 
+
+/*
+Resource variable declaration
+*/
+
 variable "rg_resource" {
   default = null
 }
@@ -89,5 +100,15 @@ variable "akv_resource" {
 variable "sta_resource" {
   default = null
 }
+
+variable "arc_resource" {
+  default = null
+}
+
+variable "aai_resource" {
+  default = null
+}
+
+
 
 
