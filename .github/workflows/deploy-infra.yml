@@ -15,10 +15,10 @@ permissions:
   contents: read
 
 jobs:     
-  deploy-terraform:
-    name: Deploy Azure resources
+  Init-terraform:
+    name: Init Terraform for Azure resources
     runs-on: ubuntu-latest
-    environment: Azure
+    # environment: Azure
 
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -43,6 +43,12 @@ jobs:
       id: plan
       run: terraform plan -out=tfplan
 
-    # - name: Terraform Apply
-    #   id: apply
-    #   run: terraform apply tfplan
+  Apply-terraform:
+    name: Deploy Azure resources
+    runs-on: ubuntu-latest
+    environment: Azure
+    
+    steps:
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply tfplan
