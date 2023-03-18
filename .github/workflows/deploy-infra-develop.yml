@@ -5,10 +5,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      [main]
+      [Develop]
     paths:
-      - '.github/workflows/terraform.yml'
-      - 'modules/**'
+      - '.github/workflows/*'
+      - ./*
+
 
 permissions:
   id-token: write
@@ -18,7 +19,7 @@ jobs:
   Init-terraform:
     name: Init Terraform for Azure resources
     runs-on: ubuntu-latest
-    environment: Azure
+    environment: Visual_Studio_Subscription
 
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -47,7 +48,7 @@ jobs:
     needs: Init-terraform
     name: Deploy Azure resources
     runs-on: ubuntu-latest
-    environment: Azure
+    environment: Visual_Studio_Subscription
 
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}

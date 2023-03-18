@@ -30,27 +30,27 @@ resource "azurerm_storage_account" "adl_st" {
   count = var.module_enabled ? 1 : 0
 }
 
-resource "azurerm_role_assignment" "st_role_admin_c" {
-  scope                = azurerm_storage_account.adl_st[0].id
-  role_definition_name = "Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
+# resource "azurerm_role_assignment" "st_role_admin_c" {
+#   scope                = azurerm_storage_account.adl_st[0].id
+#   role_definition_name = "Contributor"
+#   principal_id         = data.azurerm_client_config.current.object_id
 
-  count = var.module_enabled ? 1 : 0
-}
+#   count = var.module_enabled ? 1 : 0
+# }
 
-resource "azurerm_role_assignment" "st_role_admin_sbdc" {
-  scope                = azurerm_storage_account.adl_st[0].id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
+# resource "azurerm_role_assignment" "st_role_admin_sbdc" {
+#   scope                = azurerm_storage_account.adl_st[0].id
+#   role_definition_name = "Storage Blob Data Contributor"
+#   principal_id         = data.azurerm_client_config.current.object_id
 
-  count = var.module_enabled ? 1 : 0
-}
+#   count = var.module_enabled ? 1 : 0
+# }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "st_adls" {
   name               = "default"
   storage_account_id = azurerm_storage_account.adl_st[0].id
   depends_on = [
-    azurerm_role_assignment.st_role_admin_sbdc,
+    # azurerm_role_assignment.st_role_admin_sbdc,
     azurerm_storage_account_network_rules.firewall_rules
   ]
 
