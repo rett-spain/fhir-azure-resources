@@ -52,6 +52,7 @@ jobs:
   Apply-terraform:
     runs-on: ubuntu-latest
     needs: Init-terraform
+    environment: Azure
 
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
