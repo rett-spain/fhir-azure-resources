@@ -1,0 +1,48 @@
+name: Terraform-Life-Cycle
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main  
+    paths:
+      - '.github/workflows/Terraform-Life-Cycle.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  terraform_workingdir: "./"  
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:     
+  terraform-lint:
+    name: Run Terraform lint
+    runs-on: ubuntu-latest
+    defaults:
+         run:
+          working-directory: "${{ env.terraform_workingdir }}"
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: false
+
+  terraform-init:
+    name: Run Terraform init
+    runs-on: ubuntu-latest
+    defaults:
+         run:
+          working-directory: "${{ env.terraform_workingdir }}"
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Terraform plan
+        uses: dflook/terraform-plan@v1
+        with:
+          path: my-terraform-config
+
