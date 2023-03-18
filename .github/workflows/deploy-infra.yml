@@ -65,4 +65,3 @@ jobs:
     - name: Terraform Apply
       id: apply
       run: terraform apply tfplan
-      path: modules/azure
