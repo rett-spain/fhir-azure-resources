@@ -43,26 +43,23 @@ jobs:
       id: plan
       run: terraform plan -out=tfplan
 
-    - name: Upload tfplan
+    - name: Upload Plan Artifact
       uses: actions/upload-artifact@v2
       with:
         name: tfplan
-        path: modules/azure
+        path: tfplan
 
   Apply-terraform:
-    needs: Init-terraform
-    name: Deploy Azure resources
     runs-on: ubuntu-latest
-    environment: Azure
-
+    needs: Init-terraform
     steps:
-    - name: Download tfplan
-      uses: actions/download-artifact@v2
-      with:
-        name: tfplan
-        path: modules/azure
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply tfplan
-      working-directory: ${{ github.workspace }}/modules/azure
+      - name: Download Plan Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: tfplan
+
+      - name: Terraform Apply
+        run: terraform apply tfplan
