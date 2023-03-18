@@ -39,20 +39,17 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init
-      working-directory: ./develop
       shell: bash
 
     - name: Terraform Plan
       id: plan
       run: |
        terraform plan -input=false -no-color -out tf.plan
-      working-directory: ./develop
       shell: bash
 
     - name: Terraform Show
       id: show
       run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
-      working-directory: ./develop
       shell: bash
 
     - uses: actions/github-script@v6
@@ -111,5 +108,4 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -input=false tf.plan
-        working-directory: ./develop
         shell: bash
