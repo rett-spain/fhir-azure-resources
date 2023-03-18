@@ -18,7 +18,7 @@ jobs:
   Init-terraform:
     name: Init Terraform for Azure resources
     runs-on: ubuntu-latest
-    # environment: Azure
+    environment: Azure
 
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -47,7 +47,7 @@ jobs:
     name: Deploy Azure resources
     runs-on: ubuntu-latest
     environment: Azure
-    
+
     steps:
     - name: Terraform Apply
       id: apply
