@@ -2,7 +2,7 @@ variables:
 
   # Global
   prefix: "prefix"
-  postfix: "100"
+  postfix: "10"
   location: "northeurope"
 
   #Tag Values
