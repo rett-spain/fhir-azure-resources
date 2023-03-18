@@ -16,6 +16,8 @@ env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
+  
+
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
@@ -25,6 +27,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Setup Dependencies
+        run:  |
+         az login --identity > /dev/null
+         export ARM_USE_MSI=true
+         export ARM_SUBSCRIPTION_ID=$(az login --identity | jq -r '.[0] | .id')
+         export ARM_TENANT_ID=$(az login --identity | jq -r '.[0] | .tenantId')
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
