@@ -1,6 +1,6 @@
 locals {
   default_aai = {
-    module_enabled             = local.enable_keyvault
+    module_enabled             = local.enable_application_insight
     sku_name                   = "standard"
     basename                   = local.basename
     location                   = local.location
@@ -26,3 +26,4 @@ module "application_insights" {
   internet_ingestion_enabled = each.value.internet_ingestion_enabled
   internet_query_enabled     = each.value.internet_query_enabled
 }
+

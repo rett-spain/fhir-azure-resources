@@ -27,8 +27,8 @@ locals {
   enable_storage_account    = local.config.variables.enable_storage_account != null ? local.config.variables.enable_storage_account : var.enable_storage_account
   enable_redis_cache        = local.config.variables.enable_redis_cache != null ? local.config.variables.enable_redis_cache : var.enable_redis_cache
   enable_enable_app_insight = local.config.variables.enable_app_insight != null ? local.config.variables.enable_app_insight : var.enable_app_insight
+  enable_service_plan       = local.config.variables.enable_service_plan != null ? local.config.variables.enable_service_plan : var.enable_service_plan
 
-  # enable_service_plan  = local.config.variables.enable_service_plan != null ? local.config.variables.enable_service_plan : var.enable_service_plan
   # enable_function_app  = local.config.variables.enable_function_app != null ? local.config.variables.function_app : var.function_app
   # enable_log_analytics = local.config.variables.enable_log_analytics != null ? local.config.variables.log_analytics : var.enable_log_analytics
 
@@ -37,4 +37,5 @@ locals {
   stas = local.config.variables.sta_resource != null ? local.config.variables.sta_resource : []
   arcs = local.config.variables.arc_resource != null ? local.config.variables.arc_resource : []
   aais = local.config.variables.aai_resource != null ? local.config.variables.aai_resource : []
+  asps = local.config.variables.asp_resource != null ? local.config.variables.asp_resource : []
 }

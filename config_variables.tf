@@ -109,6 +109,11 @@ variable "aai_resource" {
   default = null
 }
 
+variable "asp_resource" {
+  default = null
+}
+
+
 
 
 

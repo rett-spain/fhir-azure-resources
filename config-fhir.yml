@@ -79,6 +79,15 @@ variables:
            Project     : "FHIR Patient Registry"
            Environmentt : "dev"
            Toolkit     : "Terraform"
+
+  asp_resource: 
+      - name: "aas10"
+        resource_group_name: "FHIR01"
+        tags : 
+           Owner: "Walter"
+           Project     : "FHIR Patient Registry"
+           Environmentt : "dev"
+           Toolkit     : "Terraform"
     
 
   # Terraform remote storage
