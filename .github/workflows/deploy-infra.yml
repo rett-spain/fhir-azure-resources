@@ -42,7 +42,6 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan -out=tfplan
-      path: modules/azure
 
     - name: Upload tfplan
       uses: actions/upload-artifact@v2
