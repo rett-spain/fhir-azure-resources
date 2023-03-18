@@ -12,85 +12,86 @@ on:
 
 
 permissions:
-  id-token: write
   contents: read
+  pull-requests: write
 
-jobs:     
-  Init-terraform:
-    name: Init Terraform for Azure resources
+env:
+  terraform_workingdir: "./"  
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
     environment: Visual_Studio_Subscription
-
     env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TF_IN_AUTOMATION: true
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 0.14.7
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+         client-id: ${{ secrets.AZURE_CLIENT_ID }}
+         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Terraform Init
-      id: init
-      run: terraform init
-      shell: bash
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_version: 0.15.0
 
-    - name: Terraform Plan
-      id: plan
-      run: |
-       terraform plan -input=false -no-color -out tf.plan
-      shell: bash
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check -recursive
+        continue-on-error: true
 
-    - name: Terraform Show
-      id: show
-      run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
-      shell: bash
+      - name: Post Format
+        if: always() && github.ref != 'refs/heads/master' && (steps.fmt.outcome == 'success' || steps.fmt.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1
+        with:
+          commenter_type: fmt
+          commenter_input: ${{ format('{0}{1}', steps.fmt.outputs.stdout, steps.fmt.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.fmt.outputs.exitcode }}
 
-    - uses: actions/github-script@v6
-      if: github.event_name == 'pull_request'
-      with:
-       github-token: ${{ secrets.GITHUB_TOKEN }}
-       script: |
-        const fs = require("fs");
-        const plan = fs.readFileSync("/tmp/plan.txt", "utf8");
-        const maxGitHubBodyCharacters = 65536;
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
-        function chunkSubstr(str, size) {
-        const numChunks = Math.ceil(str.length / size)
-        const chunks = new Array(numChunks)
-        for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
-          chunks[i] = str.substr(o, size)
-        }
-        return chunks
-        }
+      - name: Post Init
+        if: always() && github.ref != 'refs/heads/master' && (steps.init.outcome == 'success' || steps.init.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1
+        with:
+          commenter_type: init
+          commenter_input: ${{ format('{0}{1}', steps.init.outputs.stdout, steps.init.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.init.outputs.exitcode }}
 
-        // Split the Terraform plan into chunks if it's too big and can't fit into the GitHub Action
-        var plans = chunkSubstr(plan, maxGitHubBodyCharacters); 
-        for (let i = 0; i < plans.length; i++) {
-        const output = `### ${{ inputs.plan-title }} Part # ${i + 1}
-        #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-        #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-        #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-        <details><summary>Show Plan</summary>
-        \`\`\`\n
-        ${plans[i]}
-        \`\`\`
-        </details>
-        *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ inputs.working-directory }}\`, Workflow: \`${{ github.workflow }}\`*`;   
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
 
-        await github.rest.issues.createComment({
-          issue_number: context.issue.number,
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          body: output
-        })
-        }
+      - name: Post Validate
+        if: always() && github.ref != 'refs/heads/master' && (steps.validate.outcome == 'success' || steps.validate.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1
+        with:
+          commenter_type: validate
+          commenter_input: ${{ format('{0}{1}', steps.validate.outputs.stdout, steps.validate.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.validate.outputs.exitcode }}
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out workspace.plan
+
+      - name: Post Plan
+        if: always() && github.ref != 'refs/heads/master' && (steps.plan.outcome == 'success' || steps.plan.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1
+        with:
+          commenter_type: plan
+          commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
 
   Apply-terraform:
     needs: Init-terraform
