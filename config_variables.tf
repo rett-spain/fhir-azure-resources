@@ -32,7 +32,7 @@ variable "enable_redis_cache" {
   default     = false
 }
 
-variable "enable_app_insight" {
+variable "enable_application_insight" {
   type        = bool
   description = "Variable to enable or disable the module"
   default     = false

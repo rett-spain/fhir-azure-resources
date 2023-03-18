@@ -22,12 +22,12 @@ locals {
   postfix  = local.config.variables.postfix != null ? local.config.variables.postfix : var.postfix
 
   #Feature Flags
-  enable_resource_group     = local.config.variables.enable_resource_group != null ? local.config.variables.enable_resource_group : var.enable_resource_group
-  enable_keyvault           = local.config.variables.enable_keyvault != null ? local.config.variables.enable_keyvault : var.enable_keyvault
-  enable_storage_account    = local.config.variables.enable_storage_account != null ? local.config.variables.enable_storage_account : var.enable_storage_account
-  enable_redis_cache        = local.config.variables.enable_redis_cache != null ? local.config.variables.enable_redis_cache : var.enable_redis_cache
-  enable_enable_app_insight = local.config.variables.enable_app_insight != null ? local.config.variables.enable_app_insight : var.enable_app_insight
-  enable_service_plan       = local.config.variables.enable_service_plan != null ? local.config.variables.enable_service_plan : var.enable_service_plan
+  enable_resource_group      = local.config.variables.enable_resource_group != null ? local.config.variables.enable_resource_group : var.enable_resource_group
+  enable_keyvault            = local.config.variables.enable_keyvault != null ? local.config.variables.enable_keyvault : var.enable_keyvault
+  enable_storage_account     = local.config.variables.enable_storage_account != null ? local.config.variables.enable_storage_account : var.enable_storage_account
+  enable_redis_cache         = local.config.variables.enable_redis_cache != null ? local.config.variables.enable_redis_cache : var.enable_redis_cache
+  enable_application_insight = local.config.variables.enable_application_insight != null ? local.config.variables.enable_application_insight : var.enable_application_insight
+  enable_service_plan        = local.config.variables.enable_service_plan != null ? local.config.variables.enable_service_plan : var.enable_service_plan
 
   # enable_function_app  = local.config.variables.enable_function_app != null ? local.config.variables.function_app : var.function_app
   # enable_log_analytics = local.config.variables.enable_log_analytics != null ? local.config.variables.log_analytics : var.enable_log_analytics
