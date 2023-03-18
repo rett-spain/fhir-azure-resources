@@ -1,12 +1,42 @@
-# module "storage_account" {
-#   source                  = "https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/storage-account?ref=v1.4.0"
-#   basename                = random_string.postfix.result
-#   resource_group_name     = module.local_rg.name
-#   location                = var.location
-#   subnet_id               = module.local_snet_default.id
-#   hns_enabled             = true
-#   firewall_default_action = var.firewall_default_action
-#   firewall_bypass         = var.firewall_bypass
-#   is_sec_module           = var.is_sec_module
-#   tags                    = local.tags
-# }
+
+locals {
+  default_stas = {
+    module_enabled                      = local.enable_storage_account
+    basename                            = local.basename
+    location                            = var.location
+    subnet_id                           = ""
+    private_dns_zone_ids_blob           = []
+    private_dns_zone_ids_file           = []
+    private_dns_zone_ids_dfs            = []
+    hns_enabled                         = true
+    firewall_default_action             = "Allow"
+    firewall_ip_rules                   = []
+    firewall_bypass                     = ["AzureServices"]
+    firewall_virtual_network_subnet_ids = []
+    is_sec_module                       = false
+    tags                                = {}
+  }
+
+  merged_sta = local.stas != null ? [for sta in local.stas : merge(local.default_stas, sta)] : []
+
+}
+
+module "storage_account" {
+  source                              = "./modules/storage-account"
+  for_each                            = local.merged_sta != null ? { for element in local.merged_sta : element.name => element } : {}
+  module_enabled                      = each.value.module_enabled
+  basename                            = each.value.name
+  resource_group_name                 = module.resource_group[each.value.resource_group_name].name
+  location                            = each.value.location
+  tags                                = each.value.tags
+  subnet_id                           = each.value.subnet_id
+  private_dns_zone_ids_blob           = each.value.private_dns_zone_ids_blob
+  private_dns_zone_ids_file           = each.value.private_dns_zone_ids_file
+  private_dns_zone_ids_dfs            = each.value.private_dns_zone_ids_dfs
+  hns_enabled                         = each.value.hns_enabled
+  firewall_default_action             = each.value.firewall_default_action
+  firewall_ip_rules                   = each.value.firewall_ip_rules
+  firewall_bypass                     = each.value.firewall_bypass
+  firewall_virtual_network_subnet_ids = each.value.firewall_virtual_network_subnet_ids
+  is_sec_module                       = each.value.is_sec_module
+}

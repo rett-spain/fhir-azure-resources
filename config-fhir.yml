@@ -14,6 +14,7 @@ variables:
   # Feature flags
   enable_resource_group: "true"
   enable_keyvault: "false"
+  enable_storage_account: "true"
   enable_service_plan: "false"
   enable_function_app: "false"
   enable_redis_cache: "false"
@@ -61,6 +62,16 @@ variables:
            Toolkit     : "Terraform"
         sku_name : "standard"
         firewall_default_action             : "Allow"
+
+  sta_resource: 
+      # - name: "fhirsta01"
+      #   resource_group_name: "FHIR01"
+      #   tags : 
+      #      Owner: "Walter"
+      #      Project     : "FHIR Patient Registry"
+      #      Environmentt : "dev"
+      #      Toolkit     : "Terraform"
+    
 
   # Terraform remote storage
   #terraform_st_resource_group: rg-adl-terraform-state

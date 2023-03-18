@@ -48,6 +48,12 @@ variable "enable_private_endpoints" {
   default     = false
 }
 
+variable "enable_storage_account" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
 variable "owner" {
   type        = string
   description = "Owner tag value"
@@ -79,4 +85,9 @@ variable "rg_resource" {
 variable "akv_resource" {
   default = null
 }
+
+variable "sta_resource" {
+  default = null
+}
+
 
