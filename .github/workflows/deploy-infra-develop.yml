@@ -1,111 +1,77 @@
-name: Deploy infra Develop
-
-# Controls when the action will run. Triggers the workflow on push or pull request
+name: Check Terraform Life Cycle
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
-      [Develop]
+      - main
+      - develop
+      - features/*
+      - feature/*
+      - */
     paths:
       - '.github/workflows/*'
       - ./*
 
 
 permissions:
-  id-token: write
   contents: read
+  pull-requests: write
 
-jobs:     
-  Init-terraform:
-    name: Init Terraform for Azure resources
+env:
+  terraform_workingdir: "./"  
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
     environment: Visual_Studio_Subscription
-
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+      - run: terraform init
+      - run: terraform plan -lock=false -out terraform.plan
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 0.14.7
+      # generate plain output
+      - run: terraform show -no-color terraform.plan > terraform.text
 
-    - name: Terraform Init
-      id: init
-      run: terraform init
-      shell: bash
+      # generate json output
+      - run: terraform show -json terraform.plan > terraform.json
 
-    - name: Terraform Plan
-      id: plan
-      run: |
-       terraform plan -input=false -no-color -out tf.plan
-      shell: bash
+      - uses: ahmadnassri/action-terraform-report@v3
+        with:
+          # tell the action the plan outputs
+          terraform-text: ${{ github.workspace }}/terraform.text
+          terraform-json: ${{ github.workspace }}/terraform.json
+          remove-stale-reports: true
 
-    - name: Terraform Show
-      id: show
-      run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
-      shell: bash
+  # Apply-terraform:
+  #   needs: Terraform
+  #   name: Deploy Azure resources
+  #   runs-on: ubuntu-latest
+  #   environment: Visual_Studio_Subscription
 
-    - uses: actions/github-script@v6
-      if: github.event_name == 'pull_request'
-      with:
-       github-token: ${{ inputs.GITHUB_TOKEN }}
-       script: |
-        const fs = require("fs");
-        const plan = fs.readFileSync("/tmp/plan.txt", "utf8");
-        const maxGitHubBodyCharacters = 65536;
+  #   env:
+  #     ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  #     ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  #     ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  #     ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-        function chunkSubstr(str, size) {
-        const numChunks = Math.ceil(str.length / size)
-        const chunks = new Array(numChunks)
-        for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
-          chunks[i] = str.substr(o, size)
-        }
-        return chunks
-        }
-
-        // Split the Terraform plan into chunks if it's too big and can't fit into the GitHub Action
-        var plans = chunkSubstr(plan, maxGitHubBodyCharacters); 
-        for (let i = 0; i < plans.length; i++) {
-        const output = `### ${{ inputs.plan-title }} Part # ${i + 1}
-        #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-        #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-        #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-        <details><summary>Show Plan</summary>
-        \`\`\`\n
-        ${plans[i]}
-        \`\`\`
-        </details>
-        *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ inputs.working-directory }}\`, Workflow: \`${{ github.workflow }}\`*`;   
-
-        await github.rest.issues.createComment({
-          issue_number: context.issue.number,
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          body: output
-        })
-        }
-
-  Apply-terraform:
-    needs: Init-terraform
-    name: Deploy Azure resources
-    runs-on: ubuntu-latest
-    environment: Visual_Studio_Subscription
-
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-
-    steps:
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -input=false tf.plan
-        shell: bash
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: hashicorp/setup-terraform@v1
+  #       with:
+  #         terraform_wrapper: false
+  #     - run: terraform init
+  #     - run: terraform plan -lock=false -out terraform.plan
+  #     - name: Terraform Apply
+  #       # if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
+  #       run: terraform apply -input=false terraform.plan
+  #       shell: bash
