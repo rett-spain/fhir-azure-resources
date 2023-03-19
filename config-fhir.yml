@@ -42,7 +42,7 @@ variables:
           Toolkit     : "Terraform"
 
   akv_resource: 
-      - name: "akv10"
+      - name: "wgakv10"
         resource_group_name: "FHIR01"
         tags : 
            Owner: "Walter"
@@ -53,7 +53,7 @@ variables:
         firewall_default_action             : "Allow"
 
   sta_resource: 
-      - name: "fhirsta10"
+      - name: "wgfhirsta10"
         resource_group_name: "FHIR01"
         tags : 
            Owner: "Walter"
@@ -62,7 +62,7 @@ variables:
            Toolkit     : "Terraform"
 
   arc_resource: 
-      - name: "arc10"
+      - name: "wgarc10"
         resource_group_name: "FHIR01"
         tags : 
            Owner: "Walter"
@@ -71,7 +71,7 @@ variables:
            Toolkit     : "Terraform"
 
   aai_resource: 
-      - name: "aai10"
+      - name: "wgaai10"
         resource_group_name: "FHIR01"
         tags : 
            Owner: "Walter"
@@ -80,7 +80,7 @@ variables:
            Toolkit     : "Terraform"
 
   asp_resource: 
-      - name: "aas10"
+      - name: "wgaas10"
         resource_group_name: "FHIR01"
         tags : 
            Owner: "Walter"
