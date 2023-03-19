@@ -29,65 +29,64 @@ variables:
   rg_resource: 
     - name: "FHIR01"
       tags : 
-          Owner: "Pedro"
-          Project     : "FHIR Patient Registry"
-          Environment : "dev"
-          Toolkit     : "Terraform"
-          
+          Owner: "procha"
+          Project: "FHIR Patient Registry"
+          Environment: "dev"
+          Toolkit: "Terraform"
+
     - name: "FHIR02"
       tags : 
           Owner: "Walter"
-          Project     : "FHIR Patient Registry"
-          Environmentt : "dev"
-          Toolkit     : "Terraform"
+          Project: "FHIR Patient Registry"
+          Environmentt: "dev"
+          Toolkit: "Terraform"
 
-  akv_resource: 
-      - name: "akv10"
+  akv_resource:
+      - name: "rett-001"
         resource_group_name: "FHIR01"
-        tags : 
-           Owner: "Walter"
-           Project     : "FHIR Patient Registry"
-           Environmentt : "dev"
-           Toolkit     : "Terraform"
-        sku_name : "standard"
-        firewall_default_action             : "Allow"
+        tags:
+           Owner: "procha"
+           Project: "FHIR Patient Registry"
+           Environmentt: "dev"
+           Toolkit: "Terraform"
+        sku_name: "standard"
+        firewall_default_action: "Allow"
 
-  sta_resource: 
-      - name: "fhirsta10"
+  sta_resource:
+      - name: "rett001"
         resource_group_name: "FHIR01"
-        tags : 
-           Owner: "Walter"
-           Project     : "FHIR Patient Registry"
-           Environmentt : "dev"
-           Toolkit     : "Terraform"
+        tags:
+           Owner: "procha"
+           Project: "FHIR Patient Registry"
+           Environmentt: "dev"
+           Toolkit: "Terraform"
 
   arc_resource: 
-      - name: "arc10"
+      - name: "rett-001"
         resource_group_name: "FHIR01"
-        tags : 
-           Owner: "Walter"
-           Project     : "FHIR Patient Registry"
-           Environmentt : "dev"
-           Toolkit     : "Terraform"
+        tags:
+           Owner: "procha"
+           Project: "FHIR Patient Registry"
+           Environmentt: "dev"
+           Toolkit: "Terraform"
 
   aai_resource: 
-      - name: "aai10"
+      - name: "rett-001"
         resource_group_name: "FHIR01"
-        tags : 
-           Owner: "Walter"
-           Project     : "FHIR Patient Registry"
-           Environmentt : "dev"
-           Toolkit     : "Terraform"
+        tags:
+           Owner: "procha"
+           Project: "FHIR Patient Registry"
+           Environmentt: "dev"
+           Toolkit: "Terraform"
 
   asp_resource: 
-      - name: "aas10"
+      - name: "rett-001"
         resource_group_name: "FHIR01"
-        tags : 
-           Owner: "Walter"
-           Project     : "FHIR Patient Registry"
-           Environmentt : "dev"
-           Toolkit     : "Terraform"
-    
+        tags: 
+           Owner: "procha"
+           Project: "FHIR Patient Registry"
+           Environmentt: "dev"
+           Toolkit: "Terraform"
 
   # Terraform remote storage
   #terraform_st_resource_group: rg-adl-terraform-state

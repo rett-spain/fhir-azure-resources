@@ -27,29 +27,21 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v3
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 0.14.7
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.4.0
 
-    - name: Terraform Init
-      id: init
-      run: terraform init
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -out=tfplan
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out=tfplan
 
-  Apply-terraform:
-    needs: Init-terraform
-    name: Deploy Azure resources
-    runs-on: ubuntu-latest
-    environment: Azure
-
-    steps:
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply tfplan 
+      - name: Terraform Apply
+        run: terraform apply tfplan
