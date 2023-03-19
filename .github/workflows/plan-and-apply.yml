@@ -63,7 +63,7 @@ jobs:
           terraform_version: 1.4.0
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -debug tfplan
+        run: terraform apply tfplan/tfplan
         env:
           TF_INPUT: false
           TF_IN_AUTOMATION: true
