@@ -1,6 +1,6 @@
 locals {
   default_ahcw = {
-    module_enabled               = local.enable_service_plan
+    module_enabled               = local.enable_healthcare_workspace
     basename                     = local.basename
     location                     = local.location
     tags                         = local.tags
