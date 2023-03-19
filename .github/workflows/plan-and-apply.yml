@@ -63,7 +63,10 @@ jobs:
           terraform_version: 1.4.0
 
       - name: Terraform Apply
-        run: terraform apply tfplan/terraform-plan
+        run: |
+          pwd
+          ls -R
+          terraform apply tfplan/terraform-plan
         env:
           TF_INPUT: false
           TF_IN_AUTOMATION: true
