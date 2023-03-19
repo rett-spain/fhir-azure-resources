@@ -63,14 +63,11 @@ jobs:
           terraform_version: 1.4.0
 
       - name: Terraform Apply
-        run: |
-          pwd
-          ls -R
-          terraform apply tfplan/terraform-plan
+        run: terraform apply -auto-approve -debug tfplan
         env:
           TF_INPUT: false
           TF_IN_AUTOMATION: true
-          TF_VAR_approval_required: "true" # set a variable to require approval
+          TF_VAR_approval_required: "true"
 
       - name: Cleanup Plan Artifacts
         run: rm tfplan
