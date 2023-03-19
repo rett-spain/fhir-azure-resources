@@ -38,7 +38,7 @@ variables:
       tags : 
           Owner: "Walter"
           Project: "FHIR Patient Registry"
-          Environmentt: "dev"
+          Environment: "dev"
           Toolkit: "Terraform"
 
   akv_resource:
@@ -47,7 +47,7 @@ variables:
         tags:
            Owner: "procha"
            Project: "FHIR Patient Registry"
-           Environmentt: "dev"
+           Environment: "dev"
            Toolkit: "Terraform"
         sku_name: "standard"
         firewall_default_action: "Allow"
@@ -58,7 +58,7 @@ variables:
         tags:
            Owner: "procha"
            Project: "FHIR Patient Registry"
-           Environmentt: "dev"
+           Environment: "dev"
            Toolkit: "Terraform"
 
   arc_resource: 
@@ -67,7 +67,7 @@ variables:
         tags:
            Owner: "procha"
            Project: "FHIR Patient Registry"
-           Environmentt: "dev"
+           Environment: "dev"
            Toolkit: "Terraform"
 
   aai_resource: 
@@ -76,7 +76,7 @@ variables:
         tags:
            Owner: "procha"
            Project: "FHIR Patient Registry"
-           Environmentt: "dev"
+           Environment: "dev"
            Toolkit: "Terraform"
 
   asp_resource: 
@@ -85,7 +85,7 @@ variables:
         tags: 
            Owner: "procha"
            Project: "FHIR Patient Registry"
-           Environmentt: "dev"
+           Environment: "dev"
            Toolkit: "Terraform"
 
   # Terraform remote storage
