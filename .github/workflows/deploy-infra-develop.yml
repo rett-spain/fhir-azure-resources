@@ -1,9 +1,13 @@
-name: Deploy infra Develop
+name: Check Terraform Life Cycle
 on:
   workflow_dispatch:
   pull_request:
     branches:
-      [Develop]
+      - main
+      - develop
+      - features/*
+      - feature/*
+      - */
     paths:
       - '.github/workflows/*'
       - ./*
