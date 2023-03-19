@@ -53,7 +53,7 @@ variables:
         firewall_default_action: "Allow"
 
   sta_resource:
-      - name: "rett-001"
+      - name: "rett001"
         resource_group_name: "FHIR01"
         tags:
            Owner: "procha"
