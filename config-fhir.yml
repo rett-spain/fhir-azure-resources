@@ -42,7 +42,7 @@ variables:
           Toolkit     : "Terraform"
 
   akv_resource: 
-      - name: "akv10"
+      - name: "rett-001"
         resource_group_name: "FHIR01"
         tags : 
            Owner: "Walter"
