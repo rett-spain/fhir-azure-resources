@@ -33,7 +33,7 @@ jobs:
         with:
           terraform_wrapper: false
       - run: terraform init
-      - run: terraform plan -lock=false -out ./temp/terraform.plan
+      - run: terraform plan -lock=false -out terraform.plan
 
       # generate plain output
       - run: terraform show -no-color terraform.plan > terraform.text
@@ -63,5 +63,5 @@ jobs:
     steps:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
-        run: terraform apply -input=false ./temp/terraform.plan
+        run: terraform apply -input=false terraform.plan
         shell: bash
