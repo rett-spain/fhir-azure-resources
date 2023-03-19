@@ -61,6 +61,8 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
     steps:
+      - uses: actions/checkout@v2
+      - run: terraform plan -lock=false -out terraform.plan
       - name: Terraform Apply
         # if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
         run: terraform apply -input=false terraform.plan
