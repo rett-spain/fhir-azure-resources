@@ -62,6 +62,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+      - run: terraform init
       - run: terraform plan -lock=false -out terraform.plan
       - name: Terraform Apply
         # if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
