@@ -56,6 +56,12 @@ variable "enable_storage_account" {
   default     = false
 }
 
+variable "enable_healthcare_workspace" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
 /*
 Tag variables
 */
