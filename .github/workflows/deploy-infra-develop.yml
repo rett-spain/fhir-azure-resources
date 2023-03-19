@@ -1,6 +1,4 @@
 name: Deploy infra Develop
-
-# Controls when the action will run. Triggers the workflow on push or pull request
 on:
   workflow_dispatch:
   pull_request:
@@ -44,9 +42,9 @@ jobs:
           terraform-text: ${{ github.workspace }}/terraform.text
           terraform-json: ${{ github.workspace }}/terraform.json
           remove-stale-reports: true
-          
+
   Apply-terraform:
-    needs: Init-terraform
+    needs: terraform
     name: Deploy Azure resources
     runs-on: ubuntu-latest
     environment: Visual_Studio_Subscription
