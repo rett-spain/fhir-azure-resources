@@ -48,26 +48,26 @@ jobs:
           terraform-json: ${{ github.workspace }}/terraform.json
           remove-stale-reports: true
 
-  Apply-terraform:
-    needs: Terraform
-    name: Deploy Azure resources
-    runs-on: ubuntu-latest
-    environment: Visual_Studio_Subscription
+  # Apply-terraform:
+  #   needs: Terraform
+  #   name: Deploy Azure resources
+  #   runs-on: ubuntu-latest
+  #   environment: Visual_Studio_Subscription
 
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  #   env:
+  #     ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  #     ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  #     ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  #     ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_wrapper: false
-      - run: terraform init
-      - run: terraform plan -lock=false -out terraform.plan
-      - name: Terraform Apply
-        # if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
-        run: terraform apply -input=false terraform.plan
-        shell: bash
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: hashicorp/setup-terraform@v1
+  #       with:
+  #         terraform_wrapper: false
+  #     - run: terraform init
+  #     - run: terraform plan -lock=false -out terraform.plan
+  #     - name: Terraform Apply
+  #       # if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
+  #       run: terraform apply -input=false terraform.plan
+  #       shell: bash
