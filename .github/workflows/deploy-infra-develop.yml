@@ -62,6 +62,6 @@ jobs:
 
     steps:
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
+        # if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
         run: terraform apply -input=false terraform.plan
         shell: bash
