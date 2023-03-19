@@ -38,5 +38,5 @@ locals {
   arcs = local.config.variables.arc_resource != null ? local.config.variables.arc_resource : []
   aais = local.config.variables.aai_resource != null ? local.config.variables.aai_resource : []
   asps = local.config.variables.asp_resource != null ? local.config.variables.asp_resource : []
-  ahcw = local.config.variables.ahcw_resource != null ? local.config.variables.ahcw_resource : []
+  ahcws = local.config.variables.ahcw_resource != null ? local.config.variables.ahcw_resource : []
 }
