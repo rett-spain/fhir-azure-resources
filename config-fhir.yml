@@ -20,6 +20,7 @@ variables:
   enable_application_insight: "true"
   enable_function_app: "false"
   enable_log_analytics: "false"
+  enable_healthcare_workspace: "true"
 
   # Security Feature flags
   enable_private_endpoints: "false"
@@ -83,6 +84,15 @@ variables:
       - name: "rett-001"
         resource_group_name: "FHIR01"
         tags: 
+           Owner: "procha"
+           Project: "FHIR Patient Registry"
+           Environment: "dev"
+           Toolkit: "Terraform"
+
+  ahcw_resource: 
+      - name: "rett-001"
+        resource_group_name: "FHIR01"
+        tags:
            Owner: "procha"
            Project: "FHIR Patient Registry"
            Environment: "dev"

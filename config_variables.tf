@@ -113,7 +113,6 @@ variable "asp_resource" {
   default = null
 }
 
-
-
-
-
+variable "ahcw_resource" {
+  default = null
+}
