@@ -19,7 +19,7 @@ env:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: Terraform
     runs-on: ubuntu-latest
     environment: Visual_Studio_Subscription
     steps:
@@ -44,7 +44,7 @@ jobs:
           remove-stale-reports: true
 
   Apply-terraform:
-    needs: terraform
+    needs: Terraform
     name: Deploy Azure resources
     runs-on: ubuntu-latest
     environment: Visual_Studio_Subscription
