@@ -1,21 +1,18 @@
-# fhir-azure-resources
-Terraform scripts to create and maintain FHIR Azure resources
+# Terraform Scripts to deploy FHIR services in Azure
 
-## Pre-requisites
+This repository contains a library of [Terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest) scripts to create and maintain Azure resources required to implement solutions using the Fast Healthcare Interoperability Resources standard (aka [FIHR](https://www.hl7.org/fhir)).
 
-1. Terraform state
+It also contains GitHub actions to deploy (and delete) the resources in Azure.
 
-    Follow this steps to setup Terraform state: https://github.com/MicrosoftDocs/azure-dev-docs/blob/main/articles/terraform/store-state-in-azure-storage.md
+We currently support the following resources:
 
-    Include the backend "azurerm" info in main.tf.
+* Resource Group
+* Healthcare workspace with FHIR Service
+* Key Vault
+* Redis Cache
+* Storage Account
+* Application Insights
 
-        backend "azurerm" {
-        resource_group_name  = "tfstate"
-        storage_account_name = "<storage_account_name>"
-        container_name       = "tfstate"
-        key                  = "terraform.tfstate"
-        }
+To use these scripts, you'll need an Azure subscription and the Terraform CLI installed on your machine. You'll also need to set the required variables for your environment.
 
-2. Authentication with Azure
-
-    Authentication via Service Principal and Client Secret: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
+Please refer to the config-fhir.yml file for a list of the required variables and their descriptions.
