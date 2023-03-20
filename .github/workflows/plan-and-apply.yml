@@ -44,11 +44,6 @@ jobs:
           chmod +x tf-summarize
           echo $PWD >> $GITHUB_PATH
 
-      - name: Print tf-summarize version and help
-        run: |
-          tf-summarize -v
-          tf-summarize -h
-
       - name: Terraform Init
         run: terraform init
 
@@ -56,7 +51,7 @@ jobs:
         id: plan
         run: terraform plan -out=tfplan
 
-      - name: summary in table format
+      - name: Summary of changes
         run: terraform show -json tfplan | tf-summarize
 
       - name: Save Plan Artifacts
