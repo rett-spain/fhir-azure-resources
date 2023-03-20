@@ -11,7 +11,7 @@ resource "azurerm_healthcare_fhir_service" "azure_health" {
   name                          = "ahfs${var.basename}"
   location                      = var.location
   resource_group_name           = var.resource_group_name
-  workspace_id                  = module.azurerm_healthcare_workspace.id
+  workspace_id                  = azurerm_healthcare_workspace.azure_health[0].id
   kind                          = var.fhir_kind
 
 #  authentication {
