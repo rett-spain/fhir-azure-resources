@@ -1,5 +1,3 @@
-
-
 locals {
   default_akv = {
     module_enabled                      = local.enable_keyvault

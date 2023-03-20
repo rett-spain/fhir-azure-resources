@@ -1,4 +1,3 @@
-
 variable "basename" {
   type = string
   validation {

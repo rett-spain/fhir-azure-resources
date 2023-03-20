@@ -28,7 +28,7 @@ locals {
   enable_redis_cache         = local.config.variables.enable_redis_cache != null ? local.config.variables.enable_redis_cache : var.enable_redis_cache
   enable_application_insight = local.config.variables.enable_application_insight != null ? local.config.variables.enable_application_insight : var.enable_application_insight
   enable_service_plan        = local.config.variables.enable_service_plan != null ? local.config.variables.enable_service_plan : var.enable_service_plan
-
+  enable_healthcare_workspace = local.config.variables.enable_healthcare_workspace != null ? local.config.variables.enable_healthcare_workspace : var.enable_healthcare_workspace
   # enable_function_app  = local.config.variables.enable_function_app != null ? local.config.variables.function_app : var.function_app
   # enable_log_analytics = local.config.variables.enable_log_analytics != null ? local.config.variables.log_analytics : var.enable_log_analytics
 
@@ -38,4 +38,5 @@ locals {
   arcs = local.config.variables.arc_resource != null ? local.config.variables.arc_resource : []
   aais = local.config.variables.aai_resource != null ? local.config.variables.aai_resource : []
   asps = local.config.variables.asp_resource != null ? local.config.variables.asp_resource : []
+  ahcws = local.config.variables.ahcw_resource != null ? local.config.variables.ahcw_resource : []
 }
