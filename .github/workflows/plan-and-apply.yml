@@ -51,16 +51,13 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./terraform-project
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan
-        working-directory: ./terraform-project
 
       - name: summary in table format
         run: terraform show -json tfplan | tf-summarize
-        working-directory: ./terraform-project
 
       - name: Save Plan Artifacts
         if: steps.plan.outcome == 'success'
