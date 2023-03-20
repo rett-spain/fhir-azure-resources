@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_healthcare_workspace" "azure_health" {
   name                          = "ahcw${var.basename}"
   location                      = var.location
@@ -14,11 +16,12 @@ resource "azurerm_healthcare_fhir_service" "azure_health" {
   workspace_id                  = azurerm_healthcare_workspace.azure_health[0].id
   kind                          = var.fhir_kind
 
-#  authentication {
-#    authority = "https://login.microsoftonline.com/tenantId"
-#    audience  = "https://tfexfhir.fhir.azurehealthcareapis.com"
-#  }
-#
+  # Define the authentication for the FHIR service
+  authentication {
+    authority = "https://login.microsoftonline.com/${data.azurerm_client_config.current.tenant_id}"
+    audience  = "https://${name}.fhir.azurehealthcareapis.com"
+  }
+
 #  access_policy_object_ids = [
 #    data.azurerm_client_config.current.object_id
 #  ]
@@ -29,13 +32,13 @@ resource "azurerm_healthcare_fhir_service" "azure_health" {
 #
 #  container_registry_login_server_url = ["tfex-container_registry_login_server"]
 #
-#  cors {
-#    allowed_origins     = ["https://tfex.com:123", "https://tfex1.com:3389"]
-#    allowed_headers     = ["*"]
-#    allowed_methods     = ["GET", "DELETE", "PUT"]
-#    max_age_in_seconds  = 3600
-#    credentials_allowed = true
-#  }
+  cors {
+    allowed_origins     = ["*"]
+    allowed_headers     = ["*"]
+    allowed_methods     = ["GET", "DELETE", "PUT", "POST", "PATCH", "OPTIONS"]
+    max_age_in_seconds  = 600
+    credentials_allowed = false
+  }
 #
 #  configuration_export_storage_account_name = "storage_account_name"
 }
