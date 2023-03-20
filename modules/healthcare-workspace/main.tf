@@ -35,7 +35,7 @@ resource "azurerm_healthcare_fhir_service" "azure_health" {
   cors {
     allowed_origins     = ["*"]
     allowed_headers     = ["*"]
-    allowed_methods     = ["GET", "DELETE", "PUT", "POST", "PATCH", "OPTIONS"]
+    allowed_methods     = ["DELETE", "GET", "HEAD", "MERGE", "POST", "OPTIONS", "PUT"]
     max_age_in_seconds  = 600
     credentials_allowed = false
   }
