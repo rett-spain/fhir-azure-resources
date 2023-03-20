@@ -68,7 +68,6 @@ jobs:
         with:
           name: terraform-plan
           path: tfplan
-        working-directory: ./terraform-project
 
   terraform-apply:
     name: Terraform Apply
