@@ -9,7 +9,7 @@ output "id" {
 output "fhir_id" {
   value = (
     length(azurerm_healthcare_fhir_service.azure_health) > 0 ?
-    azurerm_healthcare_fhir_service.azure_health[0].id : ""
+    azurerm_healthcare_fhir_service.azure_health.id : ""
   )
   description = "Resource identifier of the instance of FHIR service."
 }
