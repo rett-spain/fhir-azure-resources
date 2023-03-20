@@ -19,7 +19,7 @@ resource "azurerm_healthcare_fhir_service" "azure_health" {
   # Define the authentication for the FHIR service
   authentication {
     authority = "https://login.microsoftonline.com/${data.azurerm_client_config.current.tenant_id}"
-    audience  = "https://${azurerm_healthcare_workspace.azure_health[0].name}-${azurerm_healthcare_fhir_service.azure_health.name}.fhir.azurehealthcareapis.com"
+    audience  = "https://${azurerm_healthcare_workspace.azure_health[0].name}-${name}.fhir.azurehealthcareapis.com"
   }
 
 #  access_policy_object_ids = [
