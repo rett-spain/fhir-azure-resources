@@ -33,3 +33,9 @@ variable "module_enabled" {
   description = "Variable to enable or disable the module."
   default     = true
 }
+
+variable "fhir_kind" {
+  type        = string
+  description = "Specifies the kind of the Healthcare FHIR Service. Possible values are: fhir-Stu3 and fhir-R4. Defaults to fhir-R4. Changing this forces a new Healthcare FHIR Service to be created."
+  default     = "fhir-R4"
+}
