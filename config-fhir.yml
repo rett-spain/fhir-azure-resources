@@ -97,7 +97,7 @@ variables:
            Project: "FHIR Patient Registry"
            Environment: "dev"
            Toolkit: "Terraform"
-        fhir_kind: "fhir-Stu3"
+        fhir_kind: "fhir-R4"
 
   # Terraform remote storage
   #terraform_st_resource_group: rg-adl-terraform-state
