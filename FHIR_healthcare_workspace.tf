@@ -4,7 +4,7 @@ locals {
     basename                     = local.basename
     location                     = local.location
     tags                         = local.tags
-    fhir_kind                    = local.fhir_kind
+    fhir_kind                    = "fhir-Stu3"
   }
 
   merged_ahcw = local.ahcws != null ? [for ahcw in local.ahcws : merge(local.default_ahcw, ahcw)] : []
