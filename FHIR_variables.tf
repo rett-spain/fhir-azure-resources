@@ -32,3 +32,5 @@ variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable the module."
 }
+
+

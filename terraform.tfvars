@@ -10,5 +10,3 @@ tags           = {}
 prefix         = "fhir-prefix"
 postfix        = "101"
 module_enabled = false
-
-

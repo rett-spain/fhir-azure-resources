@@ -56,6 +56,32 @@ variable "enable_storage_account" {
   default     = false
 }
 
+
+variable "enable_virtual_network" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
+variable "enable_subnet" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
+variable "enable_subnet_peering" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
+variable "enable_container_registry" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
+
 /*
 Tag variables
 */
@@ -112,6 +138,25 @@ variable "aai_resource" {
 variable "asp_resource" {
   default = null
 }
+
+variable "vnet_resource" {
+  default = null
+}
+
+variable "sub_resource" {
+  default = null
+}
+
+variable "subnet_peering_resource" {
+  default = null
+}
+
+variable "container_registry" {
+  default = null
+}
+
+
+
 
 
 
