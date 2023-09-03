@@ -162,3 +162,7 @@ variable "subnet_peering_resource" {
 variable "container_registry" {
   default = null
 }
+
+variable "log_analytics" {
+  default = null
+}

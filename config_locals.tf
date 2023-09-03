@@ -33,19 +33,23 @@ locals {
   enable_subnet_peering       = local.config.variables.enable_subnet_peering != null ? local.config.variables.enable_subnet_peering : var.enable_subnet_peering
   enable_container_registry   = local.config.variables.enable_container_registry != null ? local.config.variables.enable_container_registry : var.enable_container_registry
   enable_healthcare_workspace = local.config.variables.enable_healthcare_workspace != null ? local.config.variables.enable_healthcare_workspace : var.enable_healthcare_workspace
+  enable_log_analytics        = local.config.variables.enable_log_analytics_workspace != null ? local.config.variables.enable_log_analytics_workspace : var.enable_log_analytics
   # enable_function_app  = local.config.variables.enable_function_app != null ? local.config.variables.function_app : var.function_app
-  # enable_log_analytics = local.config.variables.enable_log_analytics != null ? local.config.variables.log_analytics : var.enable_log_analytics
+
+
 
   # List of Resources.
-  rgs   = local.config.variables.rg_resource != null ? local.config.variables.rg_resource : []
-  akvs  = local.config.variables.akv_resource != null ? local.config.variables.akv_resource : []
-  stas  = local.config.variables.sta_resource != null ? local.config.variables.sta_resource : []
-  arcs  = local.config.variables.arc_resource != null ? local.config.variables.arc_resource : []
-  aais  = local.config.variables.aai_resource != null ? local.config.variables.aai_resource : []
-  asps  = local.config.variables.asp_resource != null ? local.config.variables.asp_resource : []
-  vnets = local.config.variables.vnet_resource != null ? local.config.variables.vnet_resource : []
-  subs  = local.config.variables.sub_resource != null ? local.config.variables.sub_resource : []
-  peers = local.config.variables.subnet_peering_resource != null ? local.config.variables.subnet_peering_resource : []
-  acrs  = local.config.variables.acr_resource != null ? local.config.variables.acr_resource : []
-  ahcws = local.config.variables.ahcw_resource != null ? local.config.variables.ahcw_resource : []
+  rgs   = try(local.config.variables.rg_resource, null) != null ? local.config.variables.rg_resource : []
+  akvs  = try(local.config.variables.akv_resource, null) != null ? local.config.variables.akv_resource : []
+  stas  = try(local.config.variables.sta_resource, null) != null ? local.config.variables.sta_resource : []
+  arcs  = try(local.config.variables.arc_resource, null) != null ? local.config.variables.arc_resource : []
+  aais  = try(local.config.variables.aai_resource, null) != null ? local.config.variables.aai_resource : []
+  asps  = try(local.config.variables.asp_resource, null) != null ? local.config.variables.asp_resource : []
+  vnets = try(local.config.variables.vnet_resource, null) != null ? local.config.variables.vnet_resource : []
+  subs  = try(local.config.variables.sub_resource, null) != null ? local.config.variables.sub_resource : []
+  peers = try(local.config.variables.subnet_peering_resource, null) != null ? local.config.variables.subnet_peering_resource : []
+  acrs  = try(local.config.variables.acr_resource, null) != null ? local.config.variables.acr_resource : []
+  ahcws = try(local.config.variables.ahcw_resource, null) != null ? local.config.variables.ahcw_resource : []
+  laws  = try(local.config.variables.law_resource, null) != null ? local.config.variables.law_resource : []
+
 }
