@@ -76,6 +76,11 @@ jobs:
           name: terraform-plan
           path: tfplan
 
+      - uses: liatrio/terraform-change-pr-commenter@v1.4.0
+        with:
+          json-file: my-tfplan.json
+          expand-comment: "true"
+
   terraform-apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
