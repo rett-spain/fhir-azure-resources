@@ -30,32 +30,32 @@ resource "azurerm_storage_account" "adl_st" {
   count = var.module_enabled ? 1 : 0
 }
 
-# resource "azurerm_role_assignment" "st_role_admin_c" {
-#   scope                = azurerm_storage_account.adl_st[0].id
-#   role_definition_name = "Contributor"
-#   principal_id         = data.azurerm_client_config.current.object_id
-
-#   count = var.module_enabled ? 1 : 0
-# }
-
-# resource "azurerm_role_assignment" "st_role_admin_sbdc" {
-#   scope                = azurerm_storage_account.adl_st[0].id
-#   role_definition_name = "Storage Blob Data Contributor"
-#   principal_id         = data.azurerm_client_config.current.object_id
-
-#   count = var.module_enabled ? 1 : 0
-# }
-
-resource "azurerm_storage_data_lake_gen2_filesystem" "st_adls" {
-  name               = "default"
-  storage_account_id = azurerm_storage_account.adl_st[0].id
-  depends_on = [
-    # azurerm_role_assignment.st_role_admin_sbdc,
-    azurerm_storage_account_network_rules.firewall_rules
-  ]
+resource "azurerm_role_assignment" "st_role_admin_c" {
+  scope                = azurerm_storage_account.adl_st[0].id
+  role_definition_name = "Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
 
   count = var.module_enabled ? 1 : 0
 }
+
+resource "azurerm_role_assignment" "st_role_admin_sbdc" {
+  scope                = azurerm_storage_account.adl_st[0].id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
+
+  count = var.module_enabled ? 1 : 0
+}
+
+# resource "azurerm_storage_data_lake_gen2_filesystem" "st_adls" {
+#   name               = "default"
+#   storage_account_id = azurerm_storage_account.adl_st[0].id
+#   depends_on = [
+#     # azurerm_role_assignment.st_role_admin_sbdc,
+#     azurerm_storage_account_network_rules.firewall_rules
+#   ]
+
+#   count = var.module_enabled ? 1 : 0
+# }
 
 resource "azurerm_storage_account_network_rules" "firewall_rules" {
   storage_account_id         = azurerm_storage_account.adl_st[0].id
@@ -84,7 +84,8 @@ resource "azurerm_private_endpoint" "st_pe_blob" {
   }
   tags = var.tags
 
-  count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_blob) != 0 ? 1 : 0
+  count = var.module_enabled && var.is_sec_module ? 1 : 0
+  # count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_blob) != 0 ? 1 : 0
 }
 
 resource "azurerm_private_endpoint" "st_pe_file" {
@@ -104,7 +105,9 @@ resource "azurerm_private_endpoint" "st_pe_file" {
   }
   tags = var.tags
 
-  count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_file) != 0 ? 1 : 0
+  count = var.module_enabled && var.is_sec_module ? 1 : 0
+  # count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_file) != 0 ? 1 : 0
+
 }
 
 resource "azurerm_private_endpoint" "st_pe_dfs" {
@@ -124,5 +127,7 @@ resource "azurerm_private_endpoint" "st_pe_dfs" {
   }
   tags = var.tags
 
-  count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_dfs) != 0 ? 1 : 0
+  count = var.module_enabled && var.is_sec_module ? 1 : 0
+  # count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_dfs) != 0 ? 1 : 0
+
 }

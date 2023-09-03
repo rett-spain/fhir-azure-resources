@@ -31,10 +31,10 @@ output "access_key" {
   sensitive   = true
 }
 
-output "adls_id" {
-  value = (
-    length(azurerm_storage_data_lake_gen2_filesystem.st_adls) > 0 ?
-    azurerm_storage_data_lake_gen2_filesystem.st_adls[0].id : ""
-  )
-  description = "Resource identifier of the ADLS filesystem."
-}
+# output "adls_id" {
+#   value = (
+#     length(azurerm_storage_data_lake_gen2_filesystem.st_adls) > 0 ?
+#     azurerm_storage_data_lake_gen2_filesystem.st_adls[0].id : ""
+#   )
+#   description = "Resource identifier of the ADLS filesystem."
+# }

@@ -19,7 +19,7 @@ variables:
   enable_subnet_peering: "true"
   # Data Feature flags
   enable_keyvault: "true"
-  enable_storage_account: "false"
+  enable_storage_account: "true"
   enable_container_registry: "true"
   enable_log_analytics_workspace: "true"
   # Compute and Paas Feature flags
@@ -27,7 +27,7 @@ variables:
   enable_redis_cache: "false"
   enable_application_insight: "true"
   enable_function_app: "false"
-  # Healh care flags
+  # Healh Care feature flags
   enable_healthcare_workspace: "true"
 
   # Resource Custom Configuration by types:
@@ -103,8 +103,12 @@ variables:
 
   ## Storage Account:
   sta_resource: 
-      - name: "fhirsta10"
+      - name: "fhirsta100"
         resource_group_name: "FHIR100-back-end"
+        vnet_name : "back-end"
+        subnet_name : "sub01"
+        is_sec_module : "true"
+
 
   # Compute  andd PaaS resources
   ## Application Insight:
