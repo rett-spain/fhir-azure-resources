@@ -18,14 +18,14 @@ variables:
   enable_subnet: "true"
   enable_subnet_peering: "true"
   # Data Feature flags
-  enable_keyvault: "false"
-  enable_storage_account: "false"
+  enable_keyvault: "true"
+  enable_storage_account: "true"
   enable_container_registry: "true"
   enable_log_analytics: "false"
   # Compute Feature flags
-  enable_service_plan: "false"
+  enable_service_plan: "true"
   enable_redis_cache: "false"
-  enable_application_insight: "false"
+  enable_application_insight: "true"
   enable_function_app: "false"
   # Healh care flags
   enable_healthcare_workspace: "true"
@@ -35,7 +35,13 @@ variables:
 
   # Resource Custom Configuration by types:
   rg_resource: 
-    - name: "FHIR100"
+    - name: "FHIR100-front-end"
+      tags : 
+           Owner: "Walter"
+           Project     : "FHIR Patient Registry"
+           Environmentt : "dev"
+           Toolkit     : "Terraform"
+    - name: "FHIR100-back-end"
       tags : 
            Owner: "Walter"
            Project     : "FHIR Patient Registry"
@@ -45,45 +51,45 @@ variables:
   ## Virtual Network:
   vnet_resource: 
     - name: "front-end"
-      resource_group_name: "FHIR100"
+      resource_group_name: "FHIR100-front-end"
       address_space: ["192.168.0.0/24"]
 
     - name: "back-end"
-      resource_group_name: "FHIR100"
+      resource_group_name: "FHIR100-back-end"
       address_space: ["192.168.1.0/24"]
   ## Virtual Network Subnet:
   sub_resource: 
     - name: "sub01"
-      resource_group_name: "FHIR100"
+      resource_group_name: "FHIR100-front-end"
       vnet_name : "front-end"
       address_prefixes: ["192.168.0.0/25"]
 
     - name: "sub01"
-      resource_group_name: "FHIR100"
+      resource_group_name: "FHIR100-back-end"
       vnet_name : "back-end"
       address_prefixes: ["192.168.1.0/25"]
   ## Virtual Network Subnet Peering:
   subnet_peering_resource:
     - name: "peer01"
-      resource_group_name: "FHIR100"
+      resource_group_name: "FHIR100-front-end"
       remote_virtual_network_name: "back-end"
       virtual_network_name : "front-end"
 
     - name: "peer01"
-      resource_group_name: "FHIR100"
+      resource_group_name: "FHIR100-back-end"
       remote_virtual_network_name:  "front-end"
       virtual_network_name : "back-end"
   # Data resources
   ## Key Vault:
   akv_resource: 
       - name: "akv10"
-        resource_group_name: "FHIR100"
+        resource_group_name: "FHIR100-back-end"
         sku_name : "standard"
         firewall_default_action             : "Allow"
   ## Azure Container Registry:
   acr_resource:
       - name: "acr10"
-        resource_group_name: "FHIR100"
+        resource_group_name: "FHIR100-back-end"
         is_private_endpoint : "true"
         vnet_name : "front-end"
         subnet_name : "sub01"
@@ -91,16 +97,16 @@ variables:
   ## Storage Account:
   sta_resource: 
       - name: "fhirsta10"
-        resource_group_name: "FHIR100"
+        resource_group_name: "FHIR100-back-end"
   # Compute resources
   ## Application Insight:
   aai_resource: 
       - name: "aai10"
-        resource_group_name: "FHIR100"
+        resource_group_name: "FHIR100-front-end"
   ## App Service Plan:
   asp_resource: 
       - name: "aas10"
-        resource_group_name: "FHIR100"
+        resource_group_name: "FHIR100-front-end"
   ## Azure Redis Cache:
   arc_resource: 
       - name: "arc10"
@@ -108,5 +114,5 @@ variables:
   # Azure Health Care Workspace:
   ahcw_resource: 
       - name: "ahcw10"
-        resource_group_name: "FHIR100"
+        resource_group_name: "FHIR100-back-end"
         fhir_kind: "fhir-R4"
