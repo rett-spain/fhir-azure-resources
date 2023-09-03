@@ -13,9 +13,6 @@ terraform {
     key                  = "terraform-develop.tfstate"
   }
 
-  # backend "local" {
-  # }
-
 }
 
 provider "azurerm" {
