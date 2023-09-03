@@ -6,7 +6,8 @@ locals {
     location                            = local.location
     tags                                = local.tags
     is_sec_module                       = false
-    subnet_id                           = ""
+    subnet_name                         = null
+    vnet_name                           = null
     private_dns_zone_ids                = []
     soft_delete_retention_days          = 90
     purge_protection_enabled            = true
@@ -31,7 +32,7 @@ module "key_vault" {
   sku_name                            = each.value.sku_name
   tags                                = each.value.tags
   is_sec_module                       = each.value.is_sec_module
-  subnet_id                           = each.value.subnet_id
+  subnet_id                           = (each.value.vnet_name == null || each.value.subnet_name == null) && each.value.is_private_endpoint != "true" ? null : module.subnet[format("%s%s%s", each.value.vnet_name, "-", each.value.subnet_name)].id
   private_dns_zone_ids                = each.value.private_dns_zone_ids
   soft_delete_retention_days          = each.value.soft_delete_retention_days
   purge_protection_enabled            = each.value.purge_protection_enabled

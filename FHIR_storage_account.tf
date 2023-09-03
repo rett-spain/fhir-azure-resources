@@ -4,7 +4,10 @@ locals {
     module_enabled                      = local.enable_storage_account
     basename                            = local.basename
     location                            = var.location
-    subnet_id                           = ""
+    tags                                = {}
+    is_sec_module                       = false
+    subnet_name                         = null
+    vnet_name                           = null
     private_dns_zone_ids_blob           = []
     private_dns_zone_ids_file           = []
     private_dns_zone_ids_dfs            = []
@@ -13,8 +16,8 @@ locals {
     firewall_ip_rules                   = []
     firewall_bypass                     = ["AzureServices"]
     firewall_virtual_network_subnet_ids = []
-    is_sec_module                       = false
-    tags                                = {}
+
+
   }
 
   merged_sta = local.stas != null ? [for sta in local.stas : merge(local.default_stas, sta)] : []
@@ -29,7 +32,7 @@ module "storage_account" {
   resource_group_name                 = module.resource_group[each.value.resource_group_name].name
   location                            = each.value.location
   tags                                = each.value.tags
-  subnet_id                           = each.value.subnet_id
+  subnet_id                           = (each.value.vnet_name == null || each.value.subnet_name == null) && each.value.is_sec_module != "true" ? null : module.subnet[format("%s%s%s", each.value.vnet_name, "-", each.value.subnet_name)].id
   private_dns_zone_ids_blob           = each.value.private_dns_zone_ids_blob
   private_dns_zone_ids_file           = each.value.private_dns_zone_ids_file
   private_dns_zone_ids_dfs            = each.value.private_dns_zone_ids_dfs

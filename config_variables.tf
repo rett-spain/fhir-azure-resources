@@ -62,6 +62,30 @@ variable "enable_healthcare_workspace" {
   default     = false
 }
 
+variable "enable_virtual_network" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
+variable "enable_subnet" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
+variable "enable_subnet_peering" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
+variable "enable_container_registry" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = false
+}
+
 /*
 Tag variables
 */
@@ -120,5 +144,25 @@ variable "asp_resource" {
 }
 
 variable "ahcw_resource" {
+  default = null
+}
+
+variable "vnet_resource" {
+  default = null
+}
+
+variable "sub_resource" {
+  default = null
+}
+
+variable "subnet_peering_resource" {
+  default = null
+}
+
+variable "container_registry" {
+  default = null
+}
+
+variable "log_analytics" {
   default = null
 }
