@@ -4,7 +4,9 @@ name: Deploy infra Develop
 on:
   workflow_dispatch:
   pull_request:
-    # branches: *
+    branches:
+      - "develop/**"
+      - "feature/**"
     paths:
       - ".github/workflows/*"
       - ./*
