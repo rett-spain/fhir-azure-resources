@@ -1,10 +1,10 @@
 name: Terraform Plan and Apply for Develop and Feature Branches
 on:
   workflow_dispatch:
-  push:
-    # branches:
-    #   - develop
-    #   - feature/*
+  # push:
+  # branches:
+  #   - develop
+  #   - feature/*
   pull_request:
     branches:
       - develop
