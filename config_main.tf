@@ -6,21 +6,20 @@ terraform {
 
   }
 
-  # backend "azurerm" {
-  #   resource_group_name  = "FHIR-Terraform"
-  #   storage_account_name = "fhirsta"
-  #   container_name       = "tfstate"
-  #   key                  = "terraform-develop.tfstate"
-  # }
-
-  backend "local" {
+  backend "azurerm" {
+    resource_group_name  = "FHIR-Terraform"
+    storage_account_name = "fhirsta"
+    container_name       = "tfstate"
+    key                  = "terraform-develop.tfstate"
   }
 
 }
 
 provider "azurerm" {
   features {
-    prevent_deletion_if_contains_resources = false
+    resource_group {
+      prevent_deletion_if_contains_resources = true
+    }
   }
 }
 
