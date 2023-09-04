@@ -1,10 +1,6 @@
 name: Terraform Plan and Apply for Develop and Feature Branches
 on:
   workflow_dispatch:
-  # push:
-  # branches:
-  #   - develop
-  #   - feature/*
   pull_request:
     branches:
       - develop
@@ -78,7 +74,7 @@ jobs:
 
       - uses: liatrio/terraform-change-pr-commenter@v1.4.0
         with:
-          json-file: my-tfplan.json
+          json-file: tfplan.json
           expand-comment: "true"
 
   terraform-apply:
