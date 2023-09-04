@@ -65,6 +65,9 @@ jobs:
       - name: Summary of changes
         run: terraform show -json tfplan | tf-summarize
 
+      - name: Summary of changes II
+        run: terraform show -no-color -json tfplan.plan > tfplan.json
+
       - name: Save Plan Artifacts
         if: steps.plan.outcome == 'success'
         uses: actions/upload-artifact@v2
